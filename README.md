@@ -2,9 +2,9 @@
 
 This is a package of two scripts for filtering the raw parsed ESTC csv.
 
-[ESTC raw csv precleaner]("estc-raw-csv-precleaner") allows filtering erroneous and duplicated data to the raw csv and outputting filtered data in the save csv format.
+[ESTC raw csv precleaner]("#estc-raw-csv-precleaner") allows filtering erroneous and duplicated data to the raw csv and outputting filtered data in the save csv format.
 
-[ESTC csv fieldpicker]("estc-csv-fieldpicker") allows subsetting the csv and picking selected fields for further analysis. It maintains the same csv format, but only keeps selected fields (with value) and associated Cu-Rives numbers.
+[ESTC csv fieldpicker]("#estc-csv-fieldpicker") allows subsetting the csv and picking selected fields for further analysis. It maintains the same csv format, but only keeps selected fields (with value) and associated Cu-Rives numbers.
 
 ## ESTC raw csv precleaner
 
