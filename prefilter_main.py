@@ -2,7 +2,8 @@ from prefilter_conf import (
     estc_csv_location,
     sane_out,
     false_out,
-    duplicated_out
+    duplicated_out,
+    summaryfile_location
     )
 
 from lib.estc_marc import (
@@ -12,7 +13,8 @@ from lib.estc_marc import (
 from lib.estc_prepicker_common import (
     get_file_len,
     print_progress,
-    read_estc_csv
+    read_estc_csv,
+    create_prefilter_summary_file
     )
 
 
@@ -24,7 +26,7 @@ def process_record_lines(record_lines,
 
     new_estc_entry = ESTCMARCEntry(record_lines)
 
-    if new_estc_entry.testrecord:
+    if new_estc_entry.testrecord or not new_estc_entry.curives_sane:
         filter_buffer.add_marc_entry(new_estc_entry)
     elif new_estc_entry.curives in processed_curives:
         duplicated_buffer.add_marc_entry(new_estc_entry)
@@ -43,7 +45,7 @@ def process_record_lines(record_lines,
 # Main script
 # ------------------------------------------
 
-# !OBS Input and output location in ./conf.py .
+# !OBS Input and output location in ./prefilter_conf.py .
 
 # Setup output write buffers.
 sane_estc_entry_buffer = ESTCMARCEntryWriteBuffer(sane_out)
@@ -99,4 +101,11 @@ process_record_lines(
     force_write=True)
 
 print("")
+print("Done!")
+
+print("Writing summaryfile ...")
+create_prefilter_summary_file(sane_out,
+                              false_out,
+                              duplicated_out,
+                              summaryfile_location)
 print("Done!")

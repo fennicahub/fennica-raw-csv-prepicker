@@ -52,6 +52,8 @@ class ESTCMARCEntry(object):
             return False
         if self.curives == "":
             return False
+        if self.curives == "(CU-RivES)":
+            return False
         return True
 
 
@@ -62,7 +64,7 @@ class ESTCMARCEntryWriteBuffer(object):
 
     def add_marc_entry(self, MARC_entry):
         self.MARC_entry_list.append(MARC_entry)
-        if len(self.MARC_entry_list) == 1000:
+        if len(self.MARC_entry_list) == 10000:
             self.write_marc_entry_csv()
 
     def write_marc_entry_csv(self, append=True, flush_buffer=True):

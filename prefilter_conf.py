@@ -11,8 +11,10 @@ estc_csv_location = "./data-temp/estc.csv"
 # Output files
 # -------------------
 # Valid entries
-sane_out = "./out-test/sane.csv"
-# Entries missing an id or detected as test entries
-false_out = "./out-test/false.csv"
+sane_out = "./out/estc_raw_sane.csv"
+# Entries with missing or invalid id or detected as test entries
+false_out = "./out/estc_raw_bad.csv"
 # Entries with id that has already been processed
-duplicated_out = "./out-test/duplicated.csv"
+duplicated_out = "./out/estc_raw_duplicated.csv"
+
+summaryfile_location = "./out/summary.md"

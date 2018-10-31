@@ -19,3 +19,24 @@ def read_estc_csv(estc_csv_location):
         datareader = csv.DictReader(csvfile, delimiter="\t")
         for row in datareader:
             yield row
+
+
+def get_n_distinct_entries_estc_csv(estc_csv_file):
+    distinct_set = set()
+    for row in read_estc_csv(estc_csv_file):
+        distinct_set.add(row.get('Record_seq'))
+    return len(distinct_set)
+
+
+def create_prefilter_summary_file(sane_out_file,
+                                  false_out_file,
+                                  duplicated_out_file,
+                                  summary_file_md):
+    sane_out_n = get_n_distinct_entries_estc_csv(sane_out_file)
+    false_out_n = get_n_distinct_entries_estc_csv(false_out_file)
+    duplicated_out_n = get_n_distinct_entries_estc_csv(duplicated_out_file)
+    with open(summary_file_md, 'w') as summaryfile:
+        summaryfile.write("#Number of distinct entries\n")
+        summaryfile.write("**Sane:** " + str(sane_out_n) + "\n")
+        summaryfile.write("**Bad:** " + str(false_out_n) + "\n")
+        summaryfile.write("**Duplicated:** " + str(duplicated_out_n) + "\n")
