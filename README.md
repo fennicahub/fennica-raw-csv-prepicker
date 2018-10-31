@@ -32,4 +32,17 @@ The script produces 3 output files (with file names configured in `./prefilter_c
 
 ## ESTC csv fieldpicker
 
-**To be done!**
+An ESTC fieldpicker that even your grandma could use. Allows you to filter the big ESTC csv and only keep the fields that are needed for your processing pipeline.
+
+### Input
+
+ESTC csv in the same format as for the above script. Preferably one that has already been filtered for duplicates, etc. So, for example estc_raw_sane.csv found here: [COMHIS/estc-data-private/estc-csv-raw-filtered/](https://github.com/COMHIS/estc-data-private/tree/master/estc-csv-raw-filtered).
+
+### Output
+
+Output is in the same format as the input, with only the user specified fields remaining.
+
+### Running the script
+
+1) Set input and output locations, and the fields you want to keep in the output in `./fieldpicker_conf.py`.
+2) Run `prefilter_main.py`.

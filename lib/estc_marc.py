@@ -56,6 +56,25 @@ class ESTCMARCEntry(object):
             return False
         return True
 
+    def keep_fields(self, fields_list):
+        filtered_data_lines = list()
+        for line in self.data_lines:
+
+            if (line.get('Value') is None or
+                    line.get('Value') == ""):
+                continue
+
+            for filter_field in fields_list:
+                if line.get('Field_code') == filter_field.get('field'):
+                    if (filter_field.get('subfield') == 'all' or
+                            filter_field.get('subfield') is None):
+                        filtered_data_lines.append(line)
+                    elif (filter_field.get('subfield') ==
+                            line.get('Subfield_code')):
+                        filtered_data_lines.append(line)
+
+        self.data_lines = filtered_data_lines
+
 
 class ESTCMARCEntryWriteBuffer(object):
     def __init__(self, csv_file):

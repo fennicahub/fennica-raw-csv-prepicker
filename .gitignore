@@ -4,4 +4,5 @@ data-temp
 out-test
 __pycache__
 lib/__pycache__
-out
+out/*
+!out/README.md
