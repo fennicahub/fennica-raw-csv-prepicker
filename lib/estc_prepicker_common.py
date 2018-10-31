@@ -28,15 +28,20 @@ def get_n_distinct_entries_estc_csv(estc_csv_file):
     return len(distinct_set)
 
 
-def create_prefilter_summary_file(sane_out_file,
+def create_prefilter_summary_file(estc_csv_location,
+                                  sane_out_file,
                                   false_out_file,
                                   duplicated_out_file,
                                   summary_file_md):
+    original_n = get_n_distinct_entries_estc_csv(estc_csv_location)
     sane_out_n = get_n_distinct_entries_estc_csv(sane_out_file)
     false_out_n = get_n_distinct_entries_estc_csv(false_out_file)
     duplicated_out_n = get_n_distinct_entries_estc_csv(duplicated_out_file)
     with open(summary_file_md, 'w') as summaryfile:
-        summaryfile.write("#Number of distinct entries\n")
-        summaryfile.write("**Sane:** " + str(sane_out_n) + "\n")
-        summaryfile.write("**Bad:** " + str(false_out_n) + "\n")
+        summaryfile.write("# Number of distinct entries\n\n")
+        summaryfile.write("## Before\n\n")
+        summaryfile.write("**All:** " + str(original_n) + "\n\n")
+        summaryfile.write("## After\n\n")
+        summaryfile.write("**Sane:** " + str(sane_out_n) + "\n\n")
+        summaryfile.write("**Bad:** " + str(false_out_n) + "\n\n")
         summaryfile.write("**Duplicated:** " + str(duplicated_out_n) + "\n")

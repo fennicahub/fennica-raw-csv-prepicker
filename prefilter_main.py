@@ -104,7 +104,8 @@ print("")
 print("Done!")
 
 print("Writing summaryfile ...")
-create_prefilter_summary_file(sane_out,
+create_prefilter_summary_file(estc_csv_location,
+                              sane_out,
                               false_out,
                               duplicated_out,
                               summaryfile_location)
