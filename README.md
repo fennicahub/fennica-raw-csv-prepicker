@@ -2,6 +2,8 @@
 
 This is a package of two scripts for filtering the raw parsed ESTC csv.
 
+**OBS!** The scripts were developed and tested with **Python 3.6**. Who knows what might happen with another version! Definitely won't be pretty with Python 2.x. No additional libraries needed.
+
 [ESTC raw csv precleaner](#estc-raw-csv-precleaner) allows filtering erroneous and duplicated data to the raw csv and outputting filtered data in the save csv format.
 
 [ESTC csv fieldpicker](#estc-csv-fieldpicker) allows subsetting the csv and picking selected fields for further analysis. It maintains the same csv format, but only keeps selected fields (with value) and associated Cu-Rives numbers.
@@ -24,8 +26,6 @@ The script produces 3 output files (with file names configured in `./prefilter_c
 * Duplicated entries also filtered out.
 
 ### Running the script
-
-**OBS!** The script was developed and tested with **Python 3.6**. Who knows what might happen with another version! Definitely won't be pretty with Python 2.x. No additional libraries needed.
 
 1) Set input and output file locations in `prefilter_conf.py`.
 2) Run `prefilter_main.py`.
