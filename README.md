@@ -25,7 +25,7 @@ The script produces 3 output files (with file names configured in `./prefilter_c
 
 ### Running the script
 
-**OBS!** The script was developed and tested with Python 3.6. Who knows what might happen with another version! No additional libraries needed.
+**OBS!** The script was developed and tested with **Python 3.6**. Who knows what might happen with another version! Definitely won't be pretty with Python 2.x. No additional libraries needed.
 
 1) Set input and output file locations in `prefilter_conf.py`.
 2) Run `prefilter_main.py`.
