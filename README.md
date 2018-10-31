@@ -45,4 +45,4 @@ Output is in the same format as the input, with only the user specified fields r
 ### Running the script
 
 1) Set input and output locations, and the fields you want to keep in the output in `./fieldpicker_conf.py`.
-2) Run `prefilter_main.py`.
+2) Run `fieldpicker_main.py`.
