@@ -1,0 +1,11 @@
+The below is an example of entry in the publisher field (260) where the field has got an additional subfield separator from something funky going on in converting from latin-1 encoding (original character is latin diphthong oe). https://msdn.microsoft.com/en-us/library/cc195054.aspx (hex 9C)
+
+76275   1   1   260 c   0156;meterio Divi Pauli,
+
+-> 23 instances of that going on in ESTC. 
+
+79525   1   1   260 b   impensis Richardi Chiswell, ad insigne Rosæ Coronatæ in C&amp;
+79525   1   1   260 c   0156;miterio D. Pauli,
+
+80466   1   1   260 b   typis R[obert]. R[oberts]. impensis Richardi Chiswell ad insigne Rosæ Coronatæ in C&amp;
+80466   1   1   260 c   0156;meterio D. Pauli,

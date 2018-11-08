@@ -56,7 +56,7 @@ class ESTCMARCEntry(object):
             return False
         return True
 
-    def keep_fields(self, fields_list):
+    def get_filtered_fields(self, fields_list):
         filtered_data_lines = list()
         for line in self.data_lines:
 
@@ -73,7 +73,60 @@ class ESTCMARCEntry(object):
                             line.get('Subfield_code')):
                         filtered_data_lines.append(line)
 
-        self.data_lines = filtered_data_lines
+        return filtered_data_lines
+
+    def keep_fields(self, fields_list):
+        self.data_lines = self.get_filtered_fields(fields_list)
+
+    def get_pubdata(self):
+        pubfields = self.get_filtered_fields(
+            [{'field': '260', 'subfield': 'all'}])
+
+        pubdata_list = []
+
+        for row in pubfields:
+
+            create_new_row = False
+
+            if row['Subfield_code'] == 'a' or row['Subfield_code'] == 'e':
+                row_type = '260_pub_loc'
+                create_new_row = True
+            elif row['Subfield_code'] == 'b' or row['Subfield_code'] == 'f':
+                row_type = '260_pub_statement'
+            elif row['Subfield_code'] == 'c' or row['Subfield_code'] == 'g':
+                row_type = '260_pub_time'
+            else:
+                print("Unexpected subfield:")
+                print(row)
+                print("\n")
+                continue
+
+            # if previous entry already has value in field type, create new
+            # if current row is location, create new
+            if len(pubdata_list) == 0:
+                create_new_row = True
+            elif pubdata_list[-1].get(row_type) is not None:
+                create_new_row = True
+            elif row_type == '260_pub_loc':
+                create_new_row = True
+
+            # if new rows are not created, update all previous rows missing
+            # info in current subfield with the subfield contents
+            if not create_new_row:
+                for pubdata_dict in pubdata_list:
+                    if pubdata_dict[row_type] is None:
+                        pubdata_dict[row_type] = row['Value']
+
+            # if new_row flag set, create the new row.
+            if create_new_row:
+                new_pubdata_outrow = {'cu-rives': self.curives,
+                                      '260_pub_loc': None,
+                                      '260_pub_statement': None,
+                                      '260_pub_time': None}
+                new_pubdata_outrow[row_type] = row['Value']
+                pubdata_list.append(new_pubdata_outrow)
+
+        return pubdata_list
 
 
 class ESTCMARCEntryWriteBuffer(object):
