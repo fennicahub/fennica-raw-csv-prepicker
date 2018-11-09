@@ -1,0 +1,21 @@
+Two cu-rives, typo in other, first one also duplicated later
+
+474192  1   1   035 a   (CU-RIveS)R7255
+474192  2   1   035 a   (CU-RivES)R475058
+474192  1   1   260 a   [London :
+474192  1   1   260 b   printed by John Bill, printer to the Kings most excellent Majesty,
+474192  1   1   260 c   1660.]
+
+103892  1   1   035 a   (CU-RivES)R7255
+103892  1   1   260 a   [London :
+103892  1   1   260 b   printed by John Bill, printer to the King's most excellent Majesty. 1660. At the King's printing-house in Black-Fryers,
+103892  1   1   260 c   [1660]]
+
+---------
+
+479322  1   1   035 a   1150-19960
+479322  2   1   035 a   (CU-RivES)R491093
+479322  1   1   260 a   [London] :
+479322  1   1   260 b   Printed for E. Husbands, and are to be sold at his shop in the Middle-Temple,
+479322  1   1   260 c   [1644]
+

@@ -7,16 +7,23 @@ class ESTCMARCEntry(object):
         self.data_lines = data_lines
         self.curives = self.find_curives()
         self.testrecord = self.is_test_record()
-        self.curives_sane = self.sane_curives()
+        self.curives_sane = self.test_curives(self.curives)
 
     def find_curives(self):
-        curives = None
+        curives_candidates = []
         for line in self.data_lines:
             if (line['Field_code'] == "035" and
                     line['Subfield_code'] == "a"):
-                curives = line['Value']
-                # print(curives)
-                break
+                curives_candidates.append(line['Value'])
+        good_candidates = []
+        for curives_candidate in curives_candidates:
+            is_good_candidate = self.test_curives(curives_candidate)
+            if is_good_candidate:
+                good_candidates.append(curives_candidate)
+        if len(good_candidates) == 0:
+            curives = None
+        else:
+            curives = good_candidates[0]
         return curives
 
     def get_lines(self):
@@ -47,12 +54,16 @@ class ESTCMARCEntry(object):
                     return True
         return False
 
-    def sane_curives(self):
-        if self.curives is None:
+    def test_curives(self, curives_value):
+        if curives_value is None:
             return False
-        if self.curives == "":
+        if curives_value == "":
             return False
-        if self.curives == "(CU-RivES)":
+        if curives_value == "(CU-RivES)":
+            return False
+        if len(curives_value) < 11:
+            return False
+        if curives_value[0:10] != "(CU-RivES)":
             return False
         return True
 

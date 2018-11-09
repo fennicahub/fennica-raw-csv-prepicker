@@ -3,17 +3,16 @@ import csv
 from lib.estc_prepicker_common import (
     get_file_len,
     print_progress,
-    read_estc_csv,
+    read_estc_csv
     )
 
 from fieldpicker_conf import (
-    estc_csv,
-    fields_outfile
+    estc_csv
     )
 
 from lib.estc_marc import (
-    ESTCMARCEntry,
-    ESTCMARCEntryWriteBuffer)
+    ESTCMARCEntry
+    )
 
 
 def get_record_lines_pubdata(record_lines):
@@ -24,7 +23,6 @@ def get_record_lines_pubdata(record_lines):
 
 prev_record_seq = None
 record_lines = list()
-output_buffer = ESTCMARCEntryWriteBuffer(fields_outfile)
 output_file = "out/publisher_data_raw.csv"
 
 
