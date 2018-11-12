@@ -5,7 +5,7 @@
 # -------------------
 # Input files
 # -------------------
-estc_csv_location = "../estc-data-private/estc-csv-raw/estc-raw.csv"
+estc_csv_location = "../estc-data-originals/estc-csv-raw/estc_raw.csv"
 
 # -------------------
 # Output files
