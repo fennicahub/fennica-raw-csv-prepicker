@@ -30,7 +30,6 @@ i = 0
 file_lines = get_file_len(estc_csv)
 
 all_pub_entries = []
-print("Pubdata test")
 for row in read_estc_csv(estc_csv):
 
     i += 1

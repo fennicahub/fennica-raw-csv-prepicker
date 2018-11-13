@@ -4,7 +4,7 @@ from lib.estc_prepicker_common import (
     read_estc_csv,
     )
 
-from fieldpicker_conf import (
+from fieldpicker_conf_035z import (
     estc_csv,
     fields_keep,
     fields_outfile

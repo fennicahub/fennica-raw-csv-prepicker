@@ -3,13 +3,14 @@ import os
 
 
 class ESTCMARCEntry(object):
-    def __init__(self, data_lines):
+    def __init__(self, data_lines, curives_filterset=None):
         self.data_lines = data_lines
-        self.curives = self.find_curives()
+        self.curives = self.find_curives(curives_filterset)
         self.testrecord = self.is_test_record()
-        self.curives_sane = self.test_curives(self.curives)
+        self.curives_sane = self.test_curives(self.curives, curives_filterset)
+        self.record_seq = self.get_rec_seq()
 
-    def find_curives(self):
+    def find_curives(self, curives_filterset=None):
         curives_candidates = []
         for line in self.data_lines:
             if (line['Field_code'] == "035" and
@@ -17,7 +18,8 @@ class ESTCMARCEntry(object):
                 curives_candidates.append(line['Value'])
         good_candidates = []
         for curives_candidate in curives_candidates:
-            is_good_candidate = self.test_curives(curives_candidate)
+            is_good_candidate = self.test_curives(curives_candidate,
+                                                  curives_filterset)
             if is_good_candidate:
                 good_candidates.append(curives_candidate)
         if len(good_candidates) == 0:
@@ -25,6 +27,24 @@ class ESTCMARCEntry(object):
         else:
             curives = good_candidates[0]
         return curives
+
+    def test_data_lines(self):
+        prev_rec_seq = None
+        for line in self.data_lines:
+            rec_seq = line['Record_seq']
+            if prev_rec_seq is None:
+                prev_rec_seq = rec_seq
+            elif prev_rec_seq != rec_seq:
+                print("Record seq mismatch!")
+                print("curives: " + self.curives)
+                print("req_sec_prev: " + prev_rec_seq)
+                print("req_sec_new: " + rec_seq)
+                return False
+        return True
+
+    def get_rec_seq(self):
+        rec_seq = self.data_lines[0]['Record_seq']
+        return rec_seq
 
     def get_lines(self):
         return self.data_lines
@@ -54,7 +74,7 @@ class ESTCMARCEntry(object):
                     return True
         return False
 
-    def test_curives(self, curives_value):
+    def test_curives(self, curives_value, curives_filterset=None):
         if curives_value is None:
             return False
         if curives_value == "":
@@ -65,6 +85,9 @@ class ESTCMARCEntry(object):
             return False
         if curives_value[0:10] != "(CU-RivES)":
             return False
+        if curives_filterset is not None:
+            if curives_value in curives_filterset:
+                return False
         return True
 
     def get_filtered_fields(self, fields_list):

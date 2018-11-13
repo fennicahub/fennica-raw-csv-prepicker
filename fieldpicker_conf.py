@@ -2,7 +2,7 @@
 # Input conf
 # -----------------------
 # ESTC input csv location
-estc_csv = "out/fields_picked.csv"
+estc_csv = "out/estc_raw_sane.csv"
 # estc_csv = "data-temp/sample1-10000.csv"
 
 # -----------------------
