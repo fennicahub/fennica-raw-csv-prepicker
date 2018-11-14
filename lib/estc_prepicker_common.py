@@ -45,3 +45,12 @@ def create_prefilter_summary_file(estc_csv_location,
         summaryfile.write("**Sane:** " + str(sane_out_n) + "\n\n")
         summaryfile.write("**Bad:** " + str(false_out_n) + "\n\n")
         summaryfile.write("**Duplicated:** " + str(duplicated_out_n) + "\n")
+
+
+def get_record_id_curives_pairs(record_id_curives_pairs_file):
+    record_id_curives_pairs = []
+    with open(record_id_curives_pairs_file, 'r') as csvfile:
+        csvreader = csv.DictReader(csvfile)
+        for row in csvreader:
+            record_id_curives_pairs.append(row)
+    return record_id_curives_pairs
