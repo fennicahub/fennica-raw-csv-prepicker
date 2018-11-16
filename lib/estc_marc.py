@@ -153,10 +153,10 @@ class ESTCMARCEntry(object):
 
             # if new_row flag set, create the new row.
             if create_new_row:
-                new_pubdata_outrow = {'cu-rives': self.curives,
-                                      '260_pub_loc': None,
-                                      '260_pub_statement': None,
-                                      '260_pub_time': None}
+                new_pubdata_outrow = {'cu_rives': self.curives,
+                                      'pub_loc_raw': None,
+                                      'pub_statement_raw': None,
+                                      'pub_time_raw': None}
                 new_pubdata_outrow[row_type] = row['Value']
                 pubdata_list.append(new_pubdata_outrow)
 
