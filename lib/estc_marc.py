@@ -123,12 +123,12 @@ class ESTCMARCEntry(object):
             create_new_row = False
 
             if row['Subfield_code'] == 'a' or row['Subfield_code'] == 'e':
-                row_type = '260_pub_loc'
+                row_type = 'pub_loc_raw'
                 create_new_row = True
             elif row['Subfield_code'] == 'b' or row['Subfield_code'] == 'f':
-                row_type = '260_pub_statement'
+                row_type = 'pub_statement_raw'
             elif row['Subfield_code'] == 'c' or row['Subfield_code'] == 'g':
-                row_type = '260_pub_time'
+                row_type = 'pub_time_raw'
             else:
                 print("Unexpected subfield:")
                 print(row)
@@ -141,7 +141,7 @@ class ESTCMARCEntry(object):
                 create_new_row = True
             elif pubdata_list[-1].get(row_type) is not None:
                 create_new_row = True
-            elif row_type == '260_pub_loc':
+            elif row_type == 'pub_loc_raw':
                 create_new_row = True
 
             # if new rows are not created, update all previous rows missing
