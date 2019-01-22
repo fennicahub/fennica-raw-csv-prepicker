@@ -6,3 +6,5 @@ __pycache__
 lib/__pycache__
 out/*
 !out/README.md
+.gitignore~
+*~
