@@ -14,7 +14,7 @@ estc_csv = "out/estc_raw_sane.csv"
 # If you want to have multiple subfields, but not all for a particular field,
 # add an entry for each combination.
 fields_keep = [{'field': '035', 'subfield': 'a'},
-               {'field': '362', 'subfield': 'a'}]
+               {'field': '260', 'subfield': 'all'}]
 
 fields_outfile = "./out/fields_picked.csv"
 
