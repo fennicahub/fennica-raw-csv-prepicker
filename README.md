@@ -16,7 +16,7 @@ The purpose of this script is to allow filtering the raw ESTC csv. It removes va
 
 ### Input
 
-Raw ESTC .csv -file produced by **[COMHIS/estc-xml2csv](https://github.com/COMHIS/estc-xml2csv)**. [COMHIS/estc-data-private/estc-csv-raw](https://github.com/COMHIS/estc-data-private/tree/master/estc-csv-raw).
+Raw ESTC .csv -file produced by **[COMHIS/estc-xml2csv](https://github.com/COMHIS/estc-xml2csv)** from input data at  [COMHIS/estc-data-originals](https://github.com/COMHIS/estc-data-originals/tree/master/estc-csv-raw).
 
 ### Output
 
