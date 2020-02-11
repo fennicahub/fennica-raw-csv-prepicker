@@ -29,8 +29,8 @@ The script produces 3 output files (with file names configured in `./prefilter_c
 
 ### Running the script
 
-1) Set input and output file locations in `prefilter_conf.py`.
-2) Run `prefilter_main.py`.
+1) Set input and output file locations in `prefilter_conf.py` (symbolic links can help to avoid user specific paths)
+2) Run `prefilter_main.py` (e.g. python3 prefilter_main.py)
 
 ## ESTC csv fieldpicker
 
@@ -49,7 +49,7 @@ Output is in the same format as the input, with only the user specified fields r
 ### Running the script
 
 1) Set input and output locations, and the fields you want to keep in the output in `./fieldpicker_conf.py`.
-2) Run `fieldpicker_main.py`.
+2) Run `fieldpicker_main.py` (e.g. python3 fieldpicker_main_008.py)
 
 ## Pubdata cleanup starting data
 

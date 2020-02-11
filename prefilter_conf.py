@@ -5,7 +5,7 @@
 # -------------------
 # Input files
 # -------------------
-estc_csv_location = "../estc-data-originals/estc-csv-raw/estc_raw.csv"
+estc_csv_location = "estc-data-originals/estc-csv-raw/estc_raw.csv"
 # testset:
 # estc_csv_location = "data-temp/sample1-10000.csv"
 # Below used for filtering out duplicated entries based on values in 035z
