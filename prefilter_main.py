@@ -2,7 +2,6 @@ import csv
 
 from prefilter_conf import (
     estc_csv_location,
-    filter_data_location,
     sane_out,
     false_out,
     duplicated_out,
@@ -36,7 +35,7 @@ def process_record_lines(record_lines,
         master_record_list.append(new_estc_entry.record_seq)
         filter_buffer.add_marc_entry(new_estc_entry)
         processed_entries['category'].append("bad")
-    elif new_estc_entry.curives in processed_entries['curives']:
+    elif new_estc_entry.curives in processed_entries['estc_id']:
         duplicated_buffer.add_marc_entry(new_estc_entry)
         processed_entries['category'].append("duplicated")
     else:
@@ -44,7 +43,7 @@ def process_record_lines(record_lines,
         processed_entries['category'].append("sane")
 
     processed_entries['record_seq'].append(new_estc_entry.record_seq)
-    processed_entries['curives'].append(new_estc_entry.curives)
+    processed_entries['estc_id'].append(new_estc_entry.curives)
 
     if force_write:
         sane_buffer.write_marc_entry_csv()
@@ -54,7 +53,7 @@ def process_record_lines(record_lines,
     return processed_entries
 
 
-def get_filterdata_set(filterdata_location):
+def load_filterdata_set(filterdata_location):
     with open(filterdata_location, 'r') as csvfile:
         filterlist = []
         csvreader = csv.reader(csvfile)
@@ -71,11 +70,25 @@ def get_filterdata_set(filterdata_location):
 def write_rec_id_table(processed_entries, output_location):
     with open(output_location, 'w') as csvfile:
         csvwriter = csv.writer(csvfile)
-        csvwriter.writerow(['record_seq', 'curives', 'category'])
+        csvwriter.writerow(['record_seq', 'estc_id', 'category'])
         for i in range(0, len(processed_entries['record_seq'])):
             csvwriter.writerow([processed_entries['record_seq'][i],
-                                processed_entries['curives'][i],
+                                processed_entries['estc_id'][i],
                                 processed_entries['category'][i]])
+
+
+def get_035z_values(estc_raw_csv):
+    values_035z = []
+    with open(estc_raw_csv, 'r') as csvfile:
+        csvreader = csv.DictReader(csvfile, delimiter='\t')
+        for row in csvreader:
+            if row['Field_code'] == '035' and row['Subfield_code'] == "z":
+                this_items = row['Value'].lower().split("(cu-rives)")
+                for item in this_items:
+                    item_u = item.upper()
+                    if len(item_u) > 0:
+                        values_035z.append(item_u)
+    return set(values_035z)
 
 
 # ------------------------------------------
@@ -84,9 +97,10 @@ def write_rec_id_table(processed_entries, output_location):
 
 # !OBS Input and output location in ./prefilter_conf.py .
 
-# read filterdata:
-filterid_set = get_filterdata_set(filter_data_location)
-
+# generate filterdata:
+print("Getting values in 035z for filtering bad ids ...")
+filterid_set = get_035z_values(estc_csv_location)
+print("   ... done!")
 
 # Setup output write buffers.
 sane_estc_entry_buffer = ESTCMARCEntryWriteBuffer(sane_out)
@@ -100,7 +114,7 @@ prev_record_seq = None
 record_lines = list()
 # processed_curives = list()
 processed_entries = {'record_seq': [],
-                     'curives': [],
+                     'estc_id': [],
                      'category': []}
 
 file_lines = get_file_len(estc_csv_location)
@@ -121,7 +135,6 @@ for row in read_estc_csv(estc_csv_location):
 
     # Check if Record_seq changes. If changed, process record and start new
     if current_record_seq != prev_record_seq:
-
         processed_entries = process_record_lines(
             record_lines,
             processed_entries,

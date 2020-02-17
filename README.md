@@ -10,27 +10,31 @@ This is a package of two scripts for filtering the raw parsed ESTC csv.
 
 [Pubdata cleanup starting data](#pubdata-cleanup-starting-data) creates a csv in a different format that plugs into the start of the publisher data cleanup script. That one employs a custom method in **ESTCMARCEntry** -class in [estc_marc.py](./lib/estc_marc.py) and serves as an example of creating a starting data subset for a cleanup script. The MARC format for the different fields varies, so creating an universal function for this task doe not seem feasible.
 
+
 ## ESTC raw csv precleaner
 
 The purpose of this script is to allow filtering the raw ESTC csv. It removes various test records and and other garbage left in the csv. It makes sure that there are no duplicated Cu-Rives ids, and no entries that are missing and id. All the filtered entries are output to separate csv files to allow manual inpection.
 
 ### Input
 
-Raw [ESTC .csv -file](https://github.com/COMHIS/estc-data-originals/tree/master/estc-csv-raw) produced by **[COMHIS/estc-xml2csv](https://github.com/COMHIS/estc-xml2csv)** from input data at  [COMHIS/estc-data-originals](https://github.com/COMHIS/estc-data-originals/tree/master/estc-xml-raw).
+* Raw [ESTC .csv -file](https://github.com/COMHIS/estc-data-originals/tree/master/estc-csv-raw) produced by **[COMHIS/estc-xml2csv](https://github.com/COMHIS/estc-xml2csv)** from input data at  [COMHIS/estc-data-originals](https://github.com/COMHIS/estc-data-originals/tree/master/estc-xml-raw).
 
 ### Output
 
 Output is csv with rows separated by **tabs**.
 
 The script produces 3 output files (with file names configured in `./prefilter_conf.py`):
-* "Sane" ESTC entries.
+* "Sane" ESTC entries. **This is the one you want for starting point of cleaning scripts. Nothing else needed.** 
 * Erroneous entries filtered out.
 * Duplicated entries also filtered out.
+
+There's also a separate table only containing the record_seq and estc_id mappings and sanity status. 
 
 ### Running the script
 
 1) Set input and output file locations in `prefilter_conf.py` (symbolic links can help to avoid user specific paths)
-2) Run `prefilter_main.py` (e.g. python3 prefilter_main.py)
+2) Run `prefilter_main.py` (e.g. `python3 prefilter_main.py`)
+
 
 ## ESTC csv fieldpicker
 

@@ -5,11 +5,9 @@
 # -------------------
 # Input files
 # -------------------
-estc_csv_location = "estc-data-originals/estc-csv-raw/estc_raw.csv"
+estc_csv_location = "../estc-data-originals/estc-csv-raw/estc_raw.csv"
 # testset:
 # estc_csv_location = "data-temp/sample1-10000.csv"
-# Below used for filtering out duplicated entries based on values in 035z
-filter_data_location = "data-prefilter/field035z-values.csv"
 
 # -------------------
 # Output files
@@ -20,7 +18,8 @@ sane_out = "./out/estc_raw_sane.csv"
 false_out = "./out/estc_raw_bad.csv"
 # Entries with id that has already been processed
 duplicated_out = "./out/estc_raw_duplicated.csv"
-
-rec_id_table_output_location = "./out/record_id_curives_pairs.csv"
+# Table with record sequence and estc_id pairs
+rec_id_table_output_location = "./out/record_seq_estc_id_pairs.csv"
+# Final ESTC unification input data table
 
 summaryfile_location = "./out/summary.md"
