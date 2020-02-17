@@ -9,6 +9,7 @@ class ESTCMARCEntry(object):
         self.testrecord = self.is_test_record()
         self.curives_sane = self.test_curives(self.curives, curives_filterset)
         self.record_seq = self.get_rec_seq()
+        self.estc_id = self.get_estc_id()
 
     def find_curives(self, curives_filterset=None):
         curives_candidates = []
@@ -48,6 +49,12 @@ class ESTCMARCEntry(object):
 
     def get_lines(self):
         return self.data_lines
+
+    def get_estc_id(self):
+        if self.curives is not None:
+            return self.curives.split('(CU-RivES)')[-1]
+        else:
+            return None
 
     def is_test_record(self):
         test_lower = [
@@ -184,7 +191,7 @@ class ESTCMARCEntryWriteBuffer(object):
         else:
             write_header = True
 
-        header_row = ['Record_seq', 'Field_seq', 'Subfield_seq',
+        header_row = ['estc_id', 'Record_seq', 'Field_seq', 'Subfield_seq',
                       'Field_code', 'Subfield_code', 'Value']
 
         with open(self.csv_file, write_method,
@@ -196,6 +203,7 @@ class ESTCMARCEntryWriteBuffer(object):
             for MARC_entry in self.MARC_entry_list:
                 for line in MARC_entry.data_lines:
                     csvwriter.writerow([
+                        MARC_entry.estc_id,
                         line.get('Record_seq'),
                         line.get('Field_seq'),
                         line.get('Subfield_seq'),
