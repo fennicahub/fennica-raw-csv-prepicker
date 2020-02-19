@@ -42,7 +42,7 @@ An ESTC fieldpicker that even your grandma could use. Allows you to filter the b
 
 ### Input
 
-ESTC csv in the same format as for the above script. Preferably one that has already been filtered for duplicates, etc. So, for example estc_raw_sane.csv found here: [COMHIS/estc-data-private/estc-csv-raw-filtered/](https://github.com/COMHIS/estc-data-private/tree/master/estc-csv-raw-filtered).
+ESTC csv in the same format as for the above script. Preferably one that has already been filtered for duplicates, etc. In practically all cases this should be **estc_raw_sane.csv** found here: [COMHIS/estc-data-private/estc-csv-raw-filtered/](https://github.com/COMHIS/estc-data-private/tree/master/estc-csv-raw-filtered).
 
 ### Output
 
