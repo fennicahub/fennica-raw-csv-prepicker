@@ -9,3 +9,4 @@ out/*
 !out/README.md
 .gitignore~
 *~
+.Rproj.user
