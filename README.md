@@ -1,5 +1,7 @@
 # ESTC raw csv prepicker
 
+See [change log](change.log)
+
 This is a package of two scripts for filtering the raw parsed ESTC csv.
 
 **OBS!** The scripts were developed and tested with **Python 3.6**. Who knows what might happen with another version! Definitely won't be pretty with Python 2.x. No additional libraries needed.
