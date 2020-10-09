@@ -7,8 +7,8 @@ from lib.estc_prepicker_common import (
     get_record_id_curives_pairs
     )
 
-from fieldpicker_conf import (
-    estc_csv
+from prefilter_fieldpicker_conf import (
+    estc_csv_location
     )
 
 from lib.estc_marc import (
@@ -43,11 +43,11 @@ record_seq_sane_set = get_sane_record_seqs(record_id_curives_pairs)
 
 # count number of lines to be processed for counter
 i = 0
-file_lines = get_file_len(estc_csv)
+file_lines = get_file_len(estc_csv_location)
 
 # Process input
 all_pub_entries = []
-for row in read_estc_csv(estc_csv):
+for row in read_estc_csv(estc_csv_location):
 
     i += 1
     if i % 1000 == 0:

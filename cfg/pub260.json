@@ -4,5 +4,5 @@
         {"field": "260", "subfield": "b"},
         {"field": "260", "subfield": "f"}
     ],
-    "fields_outfile": "./out/pub_fields_picked.csv"
+    "fields_outfile": "./out/pub_fields_picked_260.csv"
 }

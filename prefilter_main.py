@@ -1,4 +1,5 @@
 import csv
+import os
 
 from prefilter_conf import (
     estc_csv_location,
@@ -101,6 +102,12 @@ def get_035z_values(estc_raw_csv):
 print("Getting values in 035z for filtering bad ids ...")
 filterid_set = get_035z_values(estc_csv_location)
 print("   ... done!")
+
+# Delete old output files if they exist. The script writes in append -mode,
+# so if old files are not deleted they will be added to.
+for filepath in [sane_out, false_out, duplicated_out]:
+    if os.path.exists(filepath):
+        os.remove(filepath)
 
 # Setup output write buffers.
 sane_estc_entry_buffer = ESTCMARCEntryWriteBuffer(sane_out)
