@@ -1,0 +1,7 @@
+{
+    "estc_csv": "../estc-data-verified/estc-csv-raw-filtered/estc_raw_sane.csv",
+    "fields_keep": [
+        {"field": "300", "subfield": "a"}
+    ],
+    "fields_outfile": "./out/fields_picked_300a.csv"
+}
