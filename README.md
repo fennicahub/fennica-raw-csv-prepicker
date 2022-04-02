@@ -36,15 +36,15 @@ There's also a separate table only containing the record_seq and estc_id mapping
 
 1) Set input and output file locations in `prefilter_conf.py` (symbolic links can help to avoid user specific paths)
 2) Run `prefilter_main.py` (e.g. `python3 prefilter_main.py`); redone Apr 2, 2022 to ensure the use of the latest 2020 ESTC data dump; see `prefilter_conf.py` for the file paths
-
-
+3) Use [copy.sh](copy.sh) to Copy the files from out/ into github repository: [COMHIS/estc-data-verified/estc-csv-raw-filtered/](https://github.com/COMHIS/estc-data-verified/tree/master/estc-csv-raw-filtered); remember to push the updates
+ 
 ## ESTC csv fieldpicker: **fieldpicker.py**
 
 An ESTC fieldpicker that even your grandma could use. Allows you to filter the big ESTC csv and only keep the fields that are needed for your processing pipeline.
 
 ### Input
 
-ESTC csv in the same format as for the above script. Preferably one that has already been filtered for duplicates, etc. In practically all cases this should be **estc_raw_sane.csv** found here: [COMHIS/estc-data-private/estc-csv-raw-filtered/](https://github.com/COMHIS/estc-data-private/tree/master/estc-csv-raw-filtered).
+ESTC csv in the same format as for the above script. Preferably one that has already been filtered for duplicates, etc. In practically all cases this should be **estc_raw_sane.csv** found here: [COMHIS/estc-data-verified/estc-csv-raw-filtered/](https://github.com/COMHIS/estc-data-verified/tree/master/estc-csv-raw-filtered).
 
 ### Output
 
@@ -54,6 +54,10 @@ Output is in the same format as the input, with only the user specified fields r
 
 1) Create a config json file in `./cfg/` subdirectory. See for example `pub260.json`.
 2) Run `fieldpicker.py --conf [yourconf_file]` (e.g. `python fieldpicker.py --conf pub260.json`)
+
+
+
+# Further utilities for specific fields
 
 ## Pubdata cleanup starting data
 
