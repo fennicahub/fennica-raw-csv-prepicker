@@ -35,7 +35,7 @@ There's also a separate table only containing the record_seq and estc_id mapping
 ### Running the script
 
 1) Set input and output file locations in `prefilter_conf.py` (symbolic links can help to avoid user specific paths)
-2) Run `prefilter_main.py` (e.g. `python3 prefilter_main.py`)
+2) Run `prefilter_main.py` (e.g. `python3 prefilter_main.py`); redone Apr 2, 2022 to ensure the use of the latest 2020 ESTC data dump; see `prefilter_conf.py` for the file paths
 
 
 ## ESTC csv fieldpicker: **fieldpicker.py**
