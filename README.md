@@ -1,50 +1,50 @@
-# ESTC raw csv prepicker
+# Fennica raw csv prepicker
 
 See [change log](change.log)
 
-This is a package of two scripts for filtering the raw parsed ESTC csv.
+This is a package of two scripts for filtering the raw parsed Fennica csv.
 
-**OBS!** The scripts were developed and tested with **Python 3.6**. Who knows what might happen with another version! Definitely won't be pretty with Python 2.x. No additional libraries needed.
+**OBS!** The scripts were developed and tested with **Python 3.6**. No additional libraries needed.
 
-[ESTC raw csv precleaner](#estc-raw-csv-precleaner) allows filtering erroneous and duplicated data to the raw csv and outputting filtered data in the save csv format.
+[Fennica raw csv precleaner](#fennica-raw-csv-precleaner) allows filtering erroneous and duplicated data to the raw csv and outputting filtered data in the save csv format.
 
-[ESTC csv fieldpicker](#estc-csv-fieldpicker) allows subsetting the csv and picking selected fields for further analysis. It maintains the same csv format, but only keeps selected fields (with value) and associated Cu-Rives numbers.
+[Fennica csv fieldpicker](#fennica-csv-fieldpicker) allows subsetting the csv and picking selected fields for further analysis. It maintains the same csv format, but only keeps selected fields (with value) and associated ID numbers.
 
-[Pubdata cleanup starting data](#pubdata-cleanup-starting-data) creates a csv in a different format that plugs into the start of the publisher data cleanup script. That one employs a custom method in **ESTCMARCEntry** -class in [estc_marc.py](./lib/estc_marc.py) and serves as an example of creating a starting data subset for a cleanup script. The MARC format for the different fields varies, so creating an universal function for this task doe not seem feasible.
+[Pubdata cleanup starting data](#pubdata-cleanup-starting-data) creates a csv in a different format that plugs into the start of the publisher data cleanup script. That one employs a custom method in **FennicaMARCEntry** -class in [fennica_marc.py](./lib/fennica_marc.py) and serves as an example of creating a starting data subset for a cleanup script. The MARC format for the different fields varies, so creating an universal function for this task doe not seem feasible.
 
 
-## ESTC raw csv precleaner
+## Fennica raw csv precleaner
 
-The purpose of this script is to allow filtering the raw ESTC csv. It removes various test records and and other garbage left in the csv. It makes sure that there are no duplicated Cu-Rives ids, and no entries that are missing and id. All the filtered entries are output to separate csv files to allow manual inpection.
+The purpose of this script is to allow filtering the raw Fennica csv. It removes various test records and and other garbage left in the csv. It makes sure that there are no duplicated IDs, and no entries that are missing and id. All the filtered entries are output to separate csv files to allow manual inpection.
 
 ### Input
 
-* Raw [ESTC .csv -file](https://github.com/COMHIS/estc-data-originals/tree/master/estc-csv-raw) produced by **[COMHIS/estc-xml2csv](https://github.com/COMHIS/estc-xml2csv)** from input data at  [COMHIS/estc-data-originals](https://github.com/COMHIS/estc-data-originals/tree/master/estc-xml-raw).
+* Raw [Fennica .csv -file](https://github.com/fennicahub/fennica-data-originals/tree/master/fennica-csv-raw) produced by **[fennicahub/fennica-xml2csv](https://github.com/fennicahub/fennica-xml2csv)** from input data at  [fennicahub/fennica-data-originals](https://github.com/fennicahub/fennica-data-originals/tree/master/fennica-xml-raw).
 
 ### Output
 
 Output is csv with rows separated by **tabs**.
 
 The script produces 3 output files (with file names configured in `./prefilter_conf.py`):
-* "Sane" ESTC entries. **This is the one you want for starting point of cleaning scripts. Nothing else needed.** 
+* "Sane" Fennica entries. **This is the one you want for starting point of cleaning scripts. Nothing else needed.** 
 * Erroneous entries filtered out.
 * Duplicated entries also filtered out.
 
-There's also a separate table only containing the record_seq and estc_id mappings and sanity status. 
+There's also a separate table only containing the record_seq and fennica_id mappings and sanity status. 
 
 ### Running the script
 
 1) Set input and output file locations in `prefilter_conf.py` (symbolic links can help to avoid user specific paths)
-2) Run `prefilter_main.py` (e.g. `python3 prefilter_main.py`); redone Apr 2, 2022 to ensure the use of the latest 2020 ESTC data dump; see `prefilter_conf.py` for the file paths
-3) Use [copy.sh](copy.sh) to Copy the files from out/ into github repository: [COMHIS/estc-data-verified/estc-csv-raw-filtered/](https://github.com/COMHIS/estc-data-verified/tree/master/estc-csv-raw-filtered); remember to push the updates
+2) Run `prefilter_main.py` (e.g. `python3 prefilter_main.py`); see `prefilter_conf.py` for the file paths
+3) Use [copy.sh](copy.sh) to Copy the files from out/ into github repository: [fennicahub/fennica-data-verified/fennica-csv-raw-filtered/](https://github.com/fennicahub/fennica-data-verified/tree/master/fennica-csv-raw-filtered); remember to push the updates
  
-## ESTC csv fieldpicker: **fieldpicker.py**
+## Fennica csv fieldpicker: **fieldpicker.py**
 
-An ESTC fieldpicker that even your grandma could use. Allows you to filter the big ESTC csv and only keep the fields that are needed for your processing pipeline.
+An Fennica fieldpicker that even your grandma could use. Allows you to filter the big Fennica csv and only keep the fields that are needed for your processing pipeline.
 
 ### Input
 
-ESTC csv in the same format as for the above script. Preferably one that has already been filtered for duplicates, etc. In practically all cases this should be **estc_raw_sane.csv** found here: [COMHIS/estc-data-verified/estc-csv-raw-filtered/](https://github.com/COMHIS/estc-data-verified/tree/master/estc-csv-raw-filtered).
+Fennica csv in the same format as for the above script. Preferably one that has already been filtered for duplicates, etc. In practically all cases this should be **fennica_raw_sane.csv** found here: [fennicahub/fennica-data-verified/fennica-csv-raw-filtered/](https://github.com/fennicahub/fennica-data-verified/tree/master/fennica-csv-raw-filtered).
 
 ### Output
 
@@ -76,3 +76,9 @@ Creates a `.csv` table like this as output at the location set in the script fil
 | (CU-RivES)N30954 | Basil : | Printed by J.J. Tourneisen ; | MDCCLXXXIX. [1789] |
 | (CU-RivES)N30954 | Paris : | "Sold by Pissot, bookseller, Quai des Augustins," | MDCCLXXXIX. [1789] |
 | ... | ... | ... | ... |
+
+
+### Acknowledgments
+
+This script has been derived from the original code by Ville Vaara at
+[https://github.com/COMHIS/estc-raw-csv-prepicker]
