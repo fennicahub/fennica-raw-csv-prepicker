@@ -5,7 +5,7 @@
 # -------------------
 # Input files
 # -------------------
-estc_csv_location = "../estc-data-originals/estc-csv-raw/estc_raw.csv"
+estc_csv_location = "../full.csv"
 # testset:
 # estc_csv_location = "data-temp/sample1-10000.csv"
 
@@ -13,13 +13,13 @@ estc_csv_location = "../estc-data-originals/estc-csv-raw/estc_raw.csv"
 # Output files
 # -------------------
 # Valid entries
-sane_out = "./out/estc_raw_sane.csv"
+sane_out = "./out/fennica_raw_sane.csv"
 # Entries with missing or invalid id or detected as test entries
-false_out = "./out/estc_raw_bad.csv"
+false_out = "./out/fennica_raw_bad.csv"
 # Entries with id that has already been processed
-duplicated_out = "./out/estc_raw_duplicated.csv"
+duplicated_out = "./out/fennica_raw_duplicated.csv"
 # Table with record sequence and estc_id pairs
-rec_id_table_output_location = "./out/record_seq_estc_id_pairs.csv"
+rec_id_table_output_location = "./out/record_seq_fennica_id_pairs.csv"
 # Final ESTC unification input data table
 
 summaryfile_location = "./out/summary.md"

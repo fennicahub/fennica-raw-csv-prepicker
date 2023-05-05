@@ -1,5 +1,5 @@
-cp out/estc_raw_duplicated.csv estc-data-verified/estc-csv-raw-filtered/
-cp out/estc_raw_bad.csv estc-data-verified/estc-csv-raw-filtered/
-cp out/estc_raw_sane.csv estc-data-verified/estc-csv-raw-filtered/
-cp out/record_seq_estc_id_pairs.csv estc-data-verified/estc-csv-raw-filtered/
+cp out/fennica_raw_duplicated.csv fennica-data-verified/fennica-csv-raw-filtered/
+cp out/fennica_raw_bad.csv fennica-data-verified/fennica-csv-raw-filtered/
+cp out/fennica_raw_sane.csv fennica-data-verified/fennica-csv-raw-filtered/
+cp out/record_seq_fennica_id_pairs.csv fennica-data-verified/fennica-csv-raw-filtered/
 

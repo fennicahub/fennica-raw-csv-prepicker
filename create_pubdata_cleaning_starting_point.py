@@ -37,7 +37,7 @@ prev_record_seq = None
 record_lines = list()
 output_file = "out/publisher_data_raw.csv"
 recid_curives_csv = (
-    "../estc-data-verified/estc-csv-raw-filtered/record_id_curives_pairs.csv")
+    "../fennica-data-verified/fennica-csv-raw-filtered/record_id_curives_pairs.csv")
 record_id_curives_pairs = get_record_id_curives_pairs(recid_curives_csv)
 record_seq_sane_set = get_sane_record_seqs(record_id_curives_pairs)
 
