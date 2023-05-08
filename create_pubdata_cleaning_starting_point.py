@@ -1,25 +1,25 @@
 import csv
 
-from lib.estc_prepicker_common import (
+from lib.fennica_prepicker_common import (
     get_file_len,
     print_progress,
-    read_estc_csv,
+    read_fennica_csv,
     get_record_id_curives_pairs
     )
 
 from prefilter_fieldpicker_conf import (
-    estc_csv_location
+    fennica_csv_location
     )
 
-from lib.estc_marc import (
-    ESTCMARCEntry
+from lib.fennica_marc import (
+    fennicaMARCEntry
     )
 
 
 def update_pub_out(record_lines, valid_pub_entries, record_seq_sane_set):
-    new_estc_entry = ESTCMARCEntry(record_lines)
-    if new_estc_entry.record_seq in record_seq_sane_set:
-        pub_entries = new_estc_entry.get_pubdata()
+    new_fennica_entry = fennicaMARCEntry(record_lines)
+    if new_fennica_entry.record_seq in record_seq_sane_set:
+        pub_entries = new_fennica_entry.get_pubdata()
         for pub_entry in pub_entries:
             valid_pub_entries.append(pub_entry)
     return valid_pub_entries
@@ -43,11 +43,11 @@ record_seq_sane_set = get_sane_record_seqs(record_id_curives_pairs)
 
 # count number of lines to be processed for counter
 i = 0
-file_lines = get_file_len(estc_csv_location)
+file_lines = get_file_len(fennica_csv_location)
 
 # Process input
 all_pub_entries = []
-for row in read_estc_csv(estc_csv_location):
+for row in read_fennica_csv(fennica_csv_location):
 
     i += 1
     if i % 1000 == 0:
@@ -73,8 +73,7 @@ all_pub_entries = update_pub_out(
 
 # Write final output.
 with open(output_file, 'w') as outcsv:
-    fieldnames = ['cu-rives', '260_pub_loc', '260_pub_statement',
-                  '260_pub_time']
+    fieldnames = ['040']
     writer = csv.DictWriter(outcsv, fieldnames=fieldnames)
     writer.writeheader()
     for row in all_pub_entries:

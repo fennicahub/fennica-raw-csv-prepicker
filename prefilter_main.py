@@ -2,7 +2,7 @@ import csv
 import os
 
 from prefilter_conf import (
-    estc_csv_location,
+    fennica_csv_location,
     sane_out,
     false_out,
     duplicated_out,
@@ -10,14 +10,14 @@ from prefilter_conf import (
     summaryfile_location
     )
 
-from lib.estc_marc import (
-    ESTCMARCEntry,
-    ESTCMARCEntryWriteBuffer)
+from lib.fennica_marc import (
+    fennicaMARCEntry,
+    fennicaMARCEntryWriteBuffer)
 
-from lib.estc_prepicker_common import (
+from lib.fennica_prepicker_common import (
     get_file_len,
     print_progress,
-    read_estc_csv,
+    read_fennica_csv,
     create_prefilter_summary_file
     )
 
@@ -30,21 +30,21 @@ def process_record_lines(record_lines,
                          filterid_set=None,
                          force_write=False):
 
-    new_estc_entry = ESTCMARCEntry(record_lines, filterid_set)
+    new_fennica_entry = fennicaMARCEntry(record_lines, filterid_set)
 
-    if new_estc_entry.testrecord or not new_estc_entry.curives_sane:
-        master_record_list.append(new_estc_entry.record_seq)
-        filter_buffer.add_marc_entry(new_estc_entry)
+    if new_fennica_entry.testrecord or not new_fennica_entry.curives_sane:
+        master_record_list.append(new_fennica_entry.record_seq)
+        filter_buffer.add_marc_entry(new_fennica_entry)
         processed_entries['category'].append("bad")
-    elif new_estc_entry.curives in processed_entries['estc_id']:
-        duplicated_buffer.add_marc_entry(new_estc_entry)
+    elif new_fennica_entry.curives in processed_entries['fennica_id']:
+        duplicated_buffer.add_marc_entry(new_fennica_entry)
         processed_entries['category'].append("duplicated")
     else:
-        sane_buffer.add_marc_entry(new_estc_entry)
+        sane_buffer.add_marc_entry(new_fennica_entry)
         processed_entries['category'].append("sane")
 
-    processed_entries['record_seq'].append(new_estc_entry.record_seq)
-    processed_entries['estc_id'].append(new_estc_entry.curives)
+    processed_entries['record_seq'].append(new_fennica_entry.record_seq)
+    processed_entries['fennica_id'].append(new_fennica_entry.curives)
 
     if force_write:
         sane_buffer.write_marc_entry_csv()
@@ -71,16 +71,16 @@ def load_filterdata_set(filterdata_location):
 def write_rec_id_table(processed_entries, output_location):
     with open(output_location, 'w') as csvfile:
         csvwriter = csv.writer(csvfile)
-        csvwriter.writerow(['record_seq', 'estc_id', 'category'])
+        csvwriter.writerow(['record_seq', 'fennica_id', 'category'])
         for i in range(0, len(processed_entries['record_seq'])):
             csvwriter.writerow([processed_entries['record_seq'][i],
-                                processed_entries['estc_id'][i],
+                                processed_entries['fennica_id'][i],
                                 processed_entries['category'][i]])
 
 
-def get_035z_values(estc_raw_csv):
+def get_035z_values(fennica_raw_csv):
     values_035z = []
-    with open(estc_raw_csv, 'r') as csvfile:
+    with open(fennica_raw_csv, 'r') as csvfile:
         csvreader = csv.DictReader(csvfile, delimiter='\t')
         for row in csvreader:
             if row['Field_code'] == '035' and row['Subfield_code'] == "z":
@@ -100,7 +100,7 @@ def get_035z_values(estc_raw_csv):
 
 # generate filterdata:
 print("Getting values in 035z for filtering bad ids ...")
-filterid_set = get_035z_values(estc_csv_location)
+filterid_set = get_035z_values(fennica_csv_location)
 print("   ... done!")
 
 # Delete old output files if they exist. The script writes in append -mode,
@@ -110,26 +110,26 @@ for filepath in [sane_out, false_out, duplicated_out]:
         os.remove(filepath)
 
 # Setup output write buffers.
-sane_estc_entry_buffer = ESTCMARCEntryWriteBuffer(sane_out)
-filter_estc_entry_buffer = ESTCMARCEntryWriteBuffer(false_out)
-duplicated_estc_entry_buffer = ESTCMARCEntryWriteBuffer(duplicated_out)
+sane_fennica_entry_buffer = fennicaMARCEntryWriteBuffer(sane_out)
+filter_fennica_entry_buffer = fennicaMARCEntryWriteBuffer(false_out)
+duplicated_fennica_entry_buffer = fennicaMARCEntryWriteBuffer(duplicated_out)
 master_record_list = []
 
-# Loop all lines in raw ESTC csv.
+# Loop all lines in raw fennica csv.
 # Process each record, write outputs now and then.
 prev_record_seq = None
 record_lines = list()
 # processed_curives = list()
 processed_entries = {'record_seq': [],
-                     'estc_id': [],
+                     'fennica_id': [],
                      'category': []}
 
-file_lines = get_file_len(estc_csv_location)
+file_lines = get_file_len(fennica_csv_location)
 # Process each record line (and create marc entry)
 i = 0
-print("Processing ESTC csv ...")
+print("Processing fennica csv ...")
 
-for row in read_estc_csv(estc_csv_location):
+for row in read_fennica_csv(fennica_csv_location):
 
     i += 1
     if i % 1000 == 0:
@@ -145,9 +145,9 @@ for row in read_estc_csv(estc_csv_location):
         processed_entries = process_record_lines(
             record_lines,
             processed_entries,
-            sane_estc_entry_buffer,
-            filter_estc_entry_buffer,
-            duplicated_estc_entry_buffer,
+            sane_fennica_entry_buffer,
+            filter_fennica_entry_buffer,
+            duplicated_fennica_entry_buffer,
             filterid_set=filterid_set)
         # processed_curives.append(processed_id_pair['curives'])
         record_lines = [row]
@@ -160,9 +160,9 @@ for row in read_estc_csv(estc_csv_location):
 processed_entries = process_record_lines(
     record_lines,
     processed_entries,
-    sane_estc_entry_buffer,
-    filter_estc_entry_buffer,
-    duplicated_estc_entry_buffer,
+    sane_fennica_entry_buffer,
+    filter_fennica_entry_buffer,
+    duplicated_fennica_entry_buffer,
     filterid_set=filterid_set,
     force_write=True)
 
@@ -175,7 +175,7 @@ print("")
 print("Done!")
 
 print("Writing summaryfile ...")
-create_prefilter_summary_file(estc_csv_location,
+create_prefilter_summary_file(fennica_csv_location,
                               sane_out,
                               false_out,
                               duplicated_out,

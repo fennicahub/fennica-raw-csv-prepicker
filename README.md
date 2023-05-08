@@ -81,4 +81,4 @@ Creates a `.csv` table like this as output at the location set in the script fil
 ### Acknowledgments
 
 This script has been derived from the original code by Ville Vaara at
-[https://github.com/COMHIS/estc-raw-csv-prepicker]
+[https://github.com/COMHIS/fennica-raw-csv-prepicker]

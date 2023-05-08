@@ -12,29 +12,29 @@ def print_progress(current_i, max_i):
           end="\r", flush=True)
 
 
-def read_estc_csv(estc_csv_location):
-    with open(estc_csv_location, "r", encoding="utf-8") as csvfile:
+def read_fennica_csv(fennica_csv_location):
+    with open(fennica_csv_location, "r", encoding="utf-8") as csvfile:
         datareader = csv.DictReader(csvfile, delimiter="\t")
         for row in datareader:
             yield row
 
 
-def get_n_distinct_entries_estc_csv(estc_csv_file):
+def get_n_distinct_entries_fennica_csv(fennica_csv_file):
     distinct_set = set()
-    for row in read_estc_csv(estc_csv_file):
+    for row in read_fennica_csv(fennica_csv_file):
         distinct_set.add(row.get('Record_seq'))
     return len(distinct_set)
 
 
-def create_prefilter_summary_file(estc_csv_location,
+def create_prefilter_summary_file(fennica_csv_location,
                                   sane_out_file,
                                   false_out_file,
                                   duplicated_out_file,
                                   summary_file_md):
-    original_n = get_n_distinct_entries_estc_csv(estc_csv_location)
-    sane_out_n = get_n_distinct_entries_estc_csv(sane_out_file)
-    false_out_n = get_n_distinct_entries_estc_csv(false_out_file)
-    duplicated_out_n = get_n_distinct_entries_estc_csv(duplicated_out_file)
+    original_n = get_n_distinct_entries_fennica_csv(fennica_csv_location)
+    sane_out_n = get_n_distinct_entries_fennica_csv(sane_out_file)
+    false_out_n = get_n_distinct_entries_fennica_csv(false_out_file)
+    duplicated_out_n = get_n_distinct_entries_fennica_csv(duplicated_out_file)
     with open(summary_file_md, 'w') as summaryfile:
         summaryfile.write("# Number of distinct entries\n\n")
         summaryfile.write("## Before\n\n")
