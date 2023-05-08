@@ -1,5 +1,5 @@
 {
-    "estc_csv": "../fennica-data-verified/fennica-csv-raw-filtered/fennica_raw_sane.csv",
+    "estc_csv": "../../python/full.csv",
     "fields_keep": [
         {"field": "041", "subfield": "a"}
     ],
