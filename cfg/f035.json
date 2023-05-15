@@ -1,0 +1,7 @@
+{
+    "fennica_csv": "./full.csv",
+    "fields_keep": [
+        {"field": "035", "subfield": "a"}
+    ],
+    "fields_outfile": "./out/fields_picked_035.csv"
+}

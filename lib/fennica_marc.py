@@ -121,7 +121,7 @@ class fennicaMARCEntry(object):
 
     def get_pubdata(self):
         pubfields = self.get_filtered_fields(
-            [{'field': '260', 'subfield': 'all'}])
+            [{'field': '350', 'subfield': 'all'}])
 
         pubdata_list = []
 

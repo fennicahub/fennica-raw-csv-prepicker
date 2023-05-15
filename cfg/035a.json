@@ -1,7 +1,0 @@
-{
-    "estc_csv": "../../python/full.csv",
-    "fields_keep": [
-        {"field": "041", "subfield": "a"}
-    ],
-    "fields_outfile": "./out/fields_picked_041.csv"
-}
