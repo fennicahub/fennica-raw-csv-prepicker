@@ -1,11 +1,11 @@
 # Field names in the csvs (input and output):
-# Record_seq, Field_seq, Subfield_seq, Field_code, Subfield_code, Value
+# record_number (Record_seq), field_number(Field_seq), subfield_number(Subfield_seq), field_code(Field_code), subfield_code(Subfield_code), value(Value)
 # Input and output tab-separated csv.
 
 # -------------------
 # Input files
 # -------------------
-fennica_csv_location = "../full.csv"
+fennica_csv_location = "/home/ubuntu/git/full.csv"
 # testset:
 # fennica_csv_location = "data-temp/sample1-10000.csv"
 

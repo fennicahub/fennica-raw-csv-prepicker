@@ -14,9 +14,10 @@ class fennicaMARCEntry(object):
     def find_curives(self, curives_filterset=None):
         curives_candidates = []
         for line in self.data_lines:
-            if (line['Field_code'] == "035" and
-                    line['Subfield_code'] == "a"):
-                curives_candidates.append(line['Value'])
+            print (line)
+            if (line['field_code'] == "035" and
+                    line['subfield_code'] == "a"):
+                curives_candidates.append(line['value'])
         good_candidates = []
         for curives_candidate in curives_candidates:
             is_good_candidate = self.test_curives(curives_candidate,
@@ -44,7 +45,7 @@ class fennicaMARCEntry(object):
         return True
 
     def get_rec_seq(self):
-        rec_seq = self.data_lines[0]['Record_seq']
+        rec_seq = self.data_lines[0]['record_number']
         return rec_seq
 
     def get_lines(self):
@@ -70,7 +71,7 @@ class fennicaMARCEntry(object):
             "RECORD DELETED"
         ]
         for line in self.data_lines:
-            line_value = line['Value']
+            line_value = line['value']
             if line_value is None:
                 continue
             for test_case in test_lower:

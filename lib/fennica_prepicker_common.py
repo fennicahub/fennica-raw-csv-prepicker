@@ -14,7 +14,7 @@ def print_progress(current_i, max_i):
 
 def read_fennica_csv(fennica_csv_location):
     with open(fennica_csv_location, "r", encoding="utf-8") as csvfile:
-        datareader = csv.DictReader(csvfile, delimiter="\t")
+        datareader = csv.DictReader(csvfile, delimiter=",")
         for row in datareader:
             yield row
 
