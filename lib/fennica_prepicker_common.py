@@ -22,7 +22,7 @@ def read_fennica_csv(fennica_csv_location):
 def get_n_distinct_entries_fennica_csv(fennica_csv_file):
     distinct_set = set()
     for row in read_fennica_csv(fennica_csv_file):
-        distinct_set.add(row.get('Record_seq'))
+        distinct_set.add(row.get('record_number'))
     return len(distinct_set)
 
 

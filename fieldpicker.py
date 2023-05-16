@@ -53,8 +53,8 @@ if __name__ == "__main__":
             print_progress(i, file_lines)
 
         if prev_record_seq is None:
-            prev_record_seq = row.get('Record_seq')
-        current_record_seq = row.get('Record_seq')
+            prev_record_seq = row.get('record_number')
+        current_record_seq = row.get('record_number')
         # Check if Record_seq changes. If changed, process record and start new
 
         if current_record_seq != prev_record_seq:

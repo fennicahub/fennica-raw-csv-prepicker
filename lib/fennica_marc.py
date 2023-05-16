@@ -8,7 +8,7 @@ class fennicaMARCEntry(object):
         self.curives = self.find_curives(curives_filterset)
         self.testrecord = self.is_test_record()
         self.curives_sane = self.test_curives(self.curives, curives_filterset)
-        self.record_seq = self.get_rec_seq()
+        self.record_number = self.get_rec_seq()
         self.fennica_id = self.get_fennica_id()
 
     def find_curives(self, curives_filterset=None):
@@ -33,11 +33,11 @@ class fennicaMARCEntry(object):
     def test_data_lines(self):
         prev_rec_seq = None
         for line in self.data_lines:
-            rec_seq = line['Record_seq']
+            rec_seq = line['record_number']
             if prev_rec_seq is None:
                 prev_rec_seq = rec_seq
             elif prev_rec_seq != rec_seq:
-                print("Record seq mismatch!")
+                print("record_number mismatch!")
                 print("curives: " + self.curives)
                 print("req_sec_prev: " + prev_rec_seq)
                 print("req_sec_new: " + rec_seq)
@@ -102,17 +102,17 @@ class fennicaMARCEntry(object):
         filtered_data_lines = list()
         for line in self.data_lines:
 
-            if (line.get('Value') is None or
-                    line.get('Value') == ""):
+            if (line.get('value') is None or
+                    line.get('value') == ""):
                 continue
 
             for filter_field in fields_list:
-                if line.get('Field_code') == filter_field.get('field'):
+                if line.get('field_code') == filter_field.get('field'):
                     if (filter_field.get('subfield') == 'all' or
                             filter_field.get('subfield') is None):
                         filtered_data_lines.append(line)
                     elif (filter_field.get('subfield') ==
-                            line.get('Subfield_code')):
+                            line.get('subfield_code')):
                         filtered_data_lines.append(line)
 
         return filtered_data_lines
@@ -130,12 +130,12 @@ class fennicaMARCEntry(object):
 
             create_new_row = False
 
-            if row['Subfield_code'] == 'a' or row['Subfield_code'] == 'e':
+            if row['subfield_code'] == 'a' or row['subfield_code'] == 'e':
                 row_type = 'pub_loc_raw'
                 create_new_row = True
-            elif row['Subfield_code'] == 'b' or row['Subfield_code'] == 'f':
+            elif row['subfield_code'] == 'b' or row['subfield_code'] == 'f':
                 row_type = 'pub_statement_raw'
-            elif row['Subfield_code'] == 'c' or row['Subfield_code'] == 'g':
+            elif row['subfield_code'] == 'c' or row['subfield_code'] == 'g':
                 row_type = 'pub_time_raw'
             else:
                 print("Unexpected subfield:")
@@ -157,7 +157,7 @@ class fennicaMARCEntry(object):
             if not create_new_row:
                 for pubdata_dict in pubdata_list:
                     if pubdata_dict[row_type] is None:
-                        pubdata_dict[row_type] = row['Value']
+                        pubdata_dict[row_type] = row['value']
 
             # if new_row flag set, create the new row.
             if create_new_row:
@@ -192,8 +192,8 @@ class fennicaMARCEntryWriteBuffer(object):
         else:
             write_header = True
 
-        header_row = ['fennica_id', 'Record_seq', 'Field_seq', 'Subfield_seq',
-                      'Field_code', 'Subfield_code', 'Value']
+        header_row = ['fennica_id', 'record_number', 'field_number', 'subfield_number',
+                      'field_code', 'subfield_code', 'value']
 
         with open(self.csv_file, write_method,
                   encoding='utf-8') as csv_outfile:
@@ -205,12 +205,12 @@ class fennicaMARCEntryWriteBuffer(object):
                 for line in MARC_entry.data_lines:
                     csvwriter.writerow([
                         MARC_entry.fennica_id,
-                        line.get('Record_seq'),
-                        line.get('Field_seq'),
-                        line.get('Subfield_seq'),
-                        line.get('Field_code'),
-                        line.get('Subfield_code'),
-                        line.get('Value')])
+                        line.get('record_number'),
+                        line.get('field_number'),
+                        line.get('subfield_number'),
+                        line.get('field_code'),
+                        line.get('subfield_code'),
+                        line.get('value')])
 
         if flush_buffer:
             self.MARC_entry_list = list()

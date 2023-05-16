@@ -43,7 +43,7 @@ def process_record_lines(record_lines,
         sane_buffer.add_marc_entry(new_fennica_entry)
         processed_entries['category'].append("sane")
 
-    processed_entries['record_seq'].append(new_fennica_entry.record_seq)
+    processed_entries['record_number'].append(new_fennica_entry.record_seq)
     processed_entries['fennica_id'].append(new_fennica_entry.curives)
 
     if force_write:
@@ -71,9 +71,9 @@ def load_filterdata_set(filterdata_location):
 def write_rec_id_table(processed_entries, output_location):
     with open(output_location, 'w') as csvfile:
         csvwriter = csv.writer(csvfile)
-        csvwriter.writerow(['record_seq', 'fennica_id', 'category'])
-        for i in range(0, len(processed_entries['record_seq'])):
-            csvwriter.writerow([processed_entries['record_seq'][i],
+        csvwriter.writerow(['record_number', 'fennica_id', 'category'])
+        for i in range(0, len(processed_entries['record_number'])):
+            csvwriter.writerow([processed_entries['record_number'][i],
                                 processed_entries['fennica_id'][i],
                                 processed_entries['category'][i]])
 
@@ -83,8 +83,8 @@ def get_035z_values(fennica_raw_csv):
     with open(fennica_raw_csv, 'r') as csvfile:
         csvreader = csv.DictReader(csvfile, delimiter='\t')
         for row in csvreader:
-            if row['Field_code'] == '035' and row['Subfield_code'] == "z":
-                this_items = row['Value'].lower().split("(cu-rives)")
+            if row['field_code'] == '035' and row['subfield_code'] == "z":
+                this_items = row['value'].lower().split("(cu-rives)")
                 for item in this_items:
                     item_u = item.upper()
                     if len(item_u) > 0:
@@ -120,7 +120,7 @@ master_record_list = []
 prev_record_seq = None
 record_lines = list()
 # processed_curives = list()
-processed_entries = {'record_seq': [],
+processed_entries = {'record_number': [],
                      'fennica_id': [],
                      'category': []}
 
@@ -137,8 +137,8 @@ for row in read_fennica_csv(fennica_csv_location):
 
     # Special case for first entry
     if prev_record_seq is None:
-        prev_record_seq = row.get('Record_seq')
-    current_record_seq = row.get('Record_seq')
+        prev_record_seq = row.get('record_number')
+    current_record_seq = row.get('record_number')
 
     # Check if Record_seq changes. If changed, process record and start new
     if current_record_seq != prev_record_seq:

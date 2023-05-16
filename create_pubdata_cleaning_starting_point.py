@@ -73,7 +73,7 @@ all_pub_entries = update_pub_out(
 
 # Write final output.
 with open(output_file, 'w') as outcsv:
-    fieldnames = ['040']
+    fieldnames = ['035']
     writer = csv.DictWriter(outcsv, fieldnames=fieldnames)
     writer.writeheader()
     for row in all_pub_entries:
