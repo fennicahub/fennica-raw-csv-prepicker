@@ -13,7 +13,7 @@ fennica_csv_location = "/home/ubuntu/git/full.csv"
 # Output files
 # -------------------
 # Valid entries
-sane_out = "/home/ubuntu/git/sample.csv"
+sane_out = "/home/ubuntu/git/full.csv"
 # Entries with missing or invalid id or detected as test entries
 false_out = "./out/fennica_raw_bad.csv"
 # Entries with id that has already been processed
