@@ -3,5 +3,5 @@
     "fields_keep": [
         {"field": "240", "subfield": "a"}
     ],
-    "fields_outfile": "./out/fields_picked_100a.csv"
+    "fields_outfile": "./out/fields_picked_240a.csv"
 }
