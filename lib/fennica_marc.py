@@ -14,8 +14,8 @@ class fennicaMARCEntry(object):
     def find_curives(self, curives_filterset=None):
         curives_candidates = []
         for line in self.data_lines:
-            if (line['field_code'] == "240" and
-                    line['subfield_code'] == "a"):
+            if (line['field_code'] == "260" and
+                    line['subfield_code'] == "c"):
                 curives_candidates.append(line['value'])
         good_candidates = []
         for curives_candidate in curives_candidates:
