@@ -1,5 +1,5 @@
 {
-    "fennica_csv": "/home/ubuntu/git/sample.csv",
+    "fennica_csv": "/home/ubuntu/git/full.csv",
     "fields_keep": [
         {"field": "100", "subfield": "a"}
     ],
