@@ -1,0 +1,7 @@
+{
+    "fennica_csv": "/home/ubuntu/git/full.csv",
+    "fields_keep": [
+        {"field": "100", "subfield": "b"}
+    ],
+    "fields_outfile": "./out/fields_picked_100b.csv"
+}

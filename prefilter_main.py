@@ -33,7 +33,7 @@ def process_record_lines(record_lines,
     new_fennica_entry = fennicaMARCEntry(record_lines, filterid_set)
 
     if new_fennica_entry.testrecord or not new_fennica_entry.curives_sane:
-        master_record_list.append(new_fennica_entry.record_seq)
+        master_record_list.append(new_fennica_entry.record_number)
         filter_buffer.add_marc_entry(new_fennica_entry)
         processed_entries['category'].append("bad")
     elif new_fennica_entry.curives in processed_entries['fennica_id']:
@@ -43,7 +43,7 @@ def process_record_lines(record_lines,
         sane_buffer.add_marc_entry(new_fennica_entry)
         processed_entries['category'].append("sane")
 
-    processed_entries['record_number'].append(new_fennica_entry.record_seq)
+    processed_entries['record_number'].append(new_fennica_entry.record_number)
     processed_entries['fennica_id'].append(new_fennica_entry.curives)
 
     if force_write:
